@@ -28,6 +28,11 @@ public class BufferedImageBitmapImage implements BitmapImage {
 
     @Override
     public float getPixelValue(Vec2D position) {
+        if (position.x() < 0 || position.x() >= getWidth() ||
+                position.y() < 0 || position.y() >= getHeight()) {
+            return 0f; //Out of bounds reads are now valid :)
+        }
+
         int rgb = backingImage.getRGB(position.x(), position.y());
         return rgbToValue(rgb);
     }
@@ -36,9 +41,9 @@ public class BufferedImageBitmapImage implements BitmapImage {
         //TODO: Implement something smarter with color models and magic
 
         // shamelessly stolen from https://stackoverflow.com/a/21210977
-        int red   = (rgb >>> 16) & 0xFF;
-        int green = (rgb >>>  8) & 0xFF;
-        int blue  = (rgb) & 0xFF;
+        int red = (rgb >>> 16) & 0xFF;
+        int green = (rgb >>> 8) & 0xFF;
+        int blue = (rgb) & 0xFF;
 
         // calc luminance in range 0.0 to 1.0; using SRGB luminance constants
         return (red * 0.2126f + green * 0.7152f + blue * 0.0722f) / 255;

@@ -2,6 +2,7 @@ package in.spcct.romfontmaker;
 
 import in.spcct.romfontmaker.impl.BufferedImageBitmapImage;
 import in.spcct.romfontmaker.impl.SimpleImporter;
+import in.spcct.romfontmaker.impl.TemplatedExporter;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -97,6 +98,7 @@ public class Main {
 
         Font font = importer.importFont(bitmapImage, config);
 
+        /*
         JFrame frame = previewImage(
                 previewString(
                         font,
@@ -113,6 +115,16 @@ public class Main {
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+         */
+
+        Exporter exporter = new TemplatedExporter();
+
+        config.clear();
+
+//        config.put(TemplatedExporter.CONFIG_TEMPLATE, "c-uint8_t.ftl");
+        config.put(TemplatedExporter.CONFIG_TEMPLATE, "vhdl.ftl");
+
+        exporter.export(font.filter((character, glyph) -> character >= '0' && character <= '9'), System.out, config);
 
     }
 
