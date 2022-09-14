@@ -32,7 +32,7 @@ public class TemplatedExporter implements Exporter {
 
         Map<String, Object> model = new HashMap<>();
         model.put("font", font);
-        model.put("romName", config.getOrDefault(CONFIG_ROM_NAME, "font_rom"));
+        model.put("romName", config.get(CONFIG_ROM_NAME));
         model.put("radixFormatter", new RadixFormatter());
         model.put("bitCount", new BitCount());
         model.put("config", config);
@@ -53,7 +53,7 @@ public class TemplatedExporter implements Exporter {
         freemarkerConfig.setLogTemplateExceptions(true);
         freemarkerConfig.setLocale(Locale.US);
         freemarkerConfig.setClassForTemplateLoading(this.getClass(), "/templates/");
-        if (config.containsKey(CONFIG_TEMPLATE_DIRECTORY)) {
+        if (config.containsKey(CONFIG_TEMPLATE_DIRECTORY) && config.get(CONFIG_TEMPLATE_DIRECTORY) != null) {
             freemarkerConfig.setDirectoryForTemplateLoading(
                     new File(config.get(CONFIG_TEMPLATE_DIRECTORY))
             );

@@ -4,6 +4,6 @@
 const uint8_t ${romName} PROGMEM = {
 <#list font.orderedGlyphKeys as key>
     <#assign glyph = font.fontGlyphs[key]>
-    <#list glyph.getByteColumns("LSB") as byte>0x${radixFormatter(byte, 16, 2)}<#sep>,</#sep></#list><#sep>,</#sep> // ${key}
+    <#list glyph.getByteColumns("LSB") as byte>0x${radixFormatter(byte, 16, 2)}<#sep>,</#sep></#list><#sep>,</#sep>
 </#list>
 };

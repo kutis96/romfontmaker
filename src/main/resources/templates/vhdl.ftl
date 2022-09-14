@@ -19,7 +19,7 @@ architecture ${architecture} of ${romName} is
 
     constant rom_data : rom_array := (<#list font.orderedGlyphKeys as key>
     <#assign glyph = font.fontGlyphs[key]>
-        <#list glyph.getByteColumns("LSB") as byte>"${radixFormatter(byte, 2, 8)}"<#sep>,</#sep></#list><#sep>,</#sep> -- ${key}</#list>
+        <#list glyph.getByteColumns("LSB") as byte>"${radixFormatter(byte, 2, 8)}"<#sep>,</#sep></#list><#sep>,</#sep></#list>
     );
 begin
 
